@@ -2659,33 +2659,15 @@ export const TRIANGULATION = [
   };
   
   // Drawing Mesh
-  export const drawMesh = (predictions, ctx) => {
-    if (predictions.length > 0) {
-      predictions.forEach((prediction) => {
-        const keypoints = prediction.scaledMesh;
-  
-        //  Draw Triangles
-        for (let i = 0; i < TRIANGULATION.length / 3; i++) {
-          // Get sets of three keypoints for the triangle
-          const points = [
-            TRIANGULATION[i * 3],
-            TRIANGULATION[i * 3 + 1],
-            TRIANGULATION[i * 3 + 2],
-          ].map((index) => keypoints[index]);
-          //  Draw triangle
-          drawPath(ctx, points, true);
-        }
-  
-        // Draw Dots
-        for (let i = 0; i < keypoints.length; i++) {
-          const x = keypoints[i][0];
-          const y = keypoints[i][1];
-  
-          ctx.beginPath();
-          ctx.arc(x, y, 1 /* radius */, 0, 3 * Math.PI);
-          ctx.fillStyle = "aqua";
-          ctx.fill();
-        }
-      });
+  export const drawMesh = (face, ctx) => {
+    if (face.length > 0) {
+        face.forEach((f) => {
+            const { topLeft, bottomRight } = f.boundingBox;
+            const size = [bottomRight[0] - topLeft[0], bottomRight[1] - topLeft[1]];
+            // Draw bounding box
+            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+            ctx.fillStyle = 'rgba(0, 255, 0, 0.3)';
+            ctx.fillRect(topLeft[0], topLeft[1], size[0], size[1]);
+        });
     }
-  };
+};
