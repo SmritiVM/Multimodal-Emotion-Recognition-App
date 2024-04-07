@@ -1,52 +1,85 @@
-import React, { useState } from 'react';
+import React, {useRef} from 'react';
 
-function DemoCam() {
-  const [emotions, setEmotions] = useState([]);
-  const [imageFile, setImageFile] = useState(null);
+import * as tf from "@tensorflow/tfjs";
+import * as facemesh from "@tensorflow-models/facemesh";
+import Webcam from "react-webcam";
+import { drawMesh } from './utilities';
 
-  const handleImageUpload = (event) => {
-    setImageFile(event.target.files[0]);
-  };
+export default function DemoCam(){
 
-  const handleDetectEmotions = async () => {
-    if (!imageFile) {
-      alert('Please upload an image.');
-      return;
+  // Setup references
+  const webcamRef = useRef(null);
+  const canvasRef = useRef(null);
+
+  // Load facemesh
+  const runFacemesh = async () => {
+    const net = await facemesh.load({
+      inputResolution:{width:640, height:480}, scale:0.8
+    });
+    setInterval(() => {
+      detect(net)
+    }, 100)
+  }
+
+  // Detect function
+  const detect = async(net) => {
+    if(
+      typeof webcamRef.current !== "undefined" && 
+      webcamRef.current !== null && 
+      webcamRef.current.video.readyState===4
+      ){
+        // Get video properties
+        const video = webcamRef.current.video;
+        const videoWidth = webcamRef.current.video.videoWidth;
+        const videoHeight = webcamRef.current.video.videoHeight;
+
+        // Set video width
+        webcamRef.current.video.width = videoWidth;
+        webcamRef.current.video.height = videoHeight;
+
+        // Set canvas width
+        canvasRef.current.width = videoWidth;
+        canvasRef.current.height = videoHeight;
+
+        // Make detections
+        const face = await net.estimateFaces(video);
+        console.log(face);
+
+        // Get canvas context for drawing
+        const ctx = canvasRef.current.getContext("2d");
+        drawMesh(face, ctx);
     }
-
-    const formData = new FormData();
-    formData.append('image', imageFile);
-
-    try {
-      const response = await fetch('http://localhost:5000/detect_emotions', {
-        method: 'POST',
-        body: formData
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to detect emotions.');
-      }
-
-      const data = await response.json();
-      setEmotions(data);
-    } catch (error) {
-      console.error('Error detecting emotions:', error.message);
-    }
-  };
-
-  return (
+  }
+  runFacemesh();
+  return(
     <div>
-      <input type="file" accept="image/*" onChange={handleImageUpload} />
-      <button onClick={handleDetectEmotions}>Detect Emotions</button>
-      <div>
-        {emotions.map((emotion, index) => (
-          <div key={index}>
-            {emotion.label} - {emotion.position.toString()}
-          </div>
-        ))}
-      </div>
+      <Webcam ref={webcamRef} style={
+        {
+          position:"absolute",
+          marginLeft:"auto",
+          marginRight:"auto",
+          left:0,
+          right:0,
+          textAlign:"center",
+          zIndex:9,
+          width:640,
+          height:480
+        }
+      }
+      ></Webcam>
+      <canvas ref={canvasRef} style={
+        {
+          position:"absolute",
+          marginLeft:"auto",
+          marginRight:"auto",
+          left:0,
+          right:0,
+          textAlign:"center",
+          zIndex:9,
+          width:640,
+          height:480
+        }
+      }></canvas>
     </div>
-  );
+  )
 }
-
-export default DemoCam;
