@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Webcam from "react-webcam";
 
 const EmotionRecognition = () => {
   const [processedFrame, setProcessedFrame] = useState('');
+  const webcamRef = React.useRef(null);
 
-  const captureFrame = async (webcamRef) => {
+  const captureFramesAndProcess = async () => {
     const frame = webcamRef.current.getScreenshot();
-    
-    // Send frame to Flask server for processing
+
     const response = await fetch('http://localhost:5000/process_frame', {
       method: 'POST',
       headers: {
@@ -15,12 +15,17 @@ const EmotionRecognition = () => {
       },
       body: JSON.stringify({ frame })
     });
-    
+
     const data = await response.json();
+    // console.log("Processed Frame Data:", data.processed_frame); // Log processed frame data for debugging
     setProcessedFrame(data.processed_frame);
+
+    requestAnimationFrame(captureFramesAndProcess);
   };
 
-  const webcamRef = React.useRef(null);
+  useEffect(() => {
+    captureFramesAndProcess();
+  }, []);
 
   return (
     <div>
@@ -29,7 +34,6 @@ const EmotionRecognition = () => {
         ref={webcamRef}
         screenshotFormat="image/jpeg"
       />
-      <button onClick={() => captureFrame(webcamRef)}>Capture Frame</button>
       {processedFrame && <img src={processedFrame} alt="Processed Frame" />}
     </div>
   );

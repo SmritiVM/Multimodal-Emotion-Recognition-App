@@ -18,6 +18,11 @@ emotion_labels = ['Angry', '', 'Fear', 'Happy','Neutral', 'Sad', 'Surprise']
 
 # Define a function to process each frame
 def process_frame(frame):
+    # Convert frame from base64 string to numpy array
+    frame_bytes = base64.b64decode(frame.split(',')[1])
+    nparr = np.frombuffer(frame_bytes, np.uint8)
+    frame = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+    
     # Convert frame to grayscale
     gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     gray_frame = cv2.equalizeHist(gray_frame)
@@ -39,26 +44,24 @@ def process_frame(frame):
             label = emotion_labels[prediction.argmax()]
             cv2.putText(frame, label, (x, y), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 2)
     
-    return frame
+    # Convert processed frame to base64 string
+    _, encoded_frame = cv2.imencode('.jpg', frame)
+    processed_frame_data = 'data:image/jpeg;base64,' + base64.b64encode(encoded_frame).decode()
+    
+    return processed_frame_data
 
-# Define a route to receive video frames
+# Define a route to receive video frames and process them in real-time
 @app.route('/process_frame', methods=['POST'])
 @cross_origin()  # Enable CORS for this route
 def process_frame_route():
-    # Convert frame from base64 string to numpy array
-    frame_data = request.json['frame']
-    frame_bytes = base64.b64decode(frame_data.split(',')[1])
-    nparr = np.frombuffer(frame_bytes, np.uint8)
-    frame = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-    
-    # Process frame
-    processed_frame = process_frame(frame)
-    
-    # Convert processed frame to base64 string
-    _, encoded_frame = cv2.imencode('.jpg', processed_frame)
-    processed_frame_data = 'data:image/jpeg;base64,' + base64.b64encode(encoded_frame).decode()
-    
-    return jsonify({'processed_frame': processed_frame_data})
+    try:
+        frame_data = request.json['frame']
+        # print("Received frame data:", frame_data)  # Print received frame data for debugging
+        processed_frame = process_frame(frame_data)
+        return jsonify({'processed_frame': processed_frame})
+    except Exception as e:
+        print("Error processing frame:", str(e))  # Print error message for debugging
+        return jsonify({'error': str(e)})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
