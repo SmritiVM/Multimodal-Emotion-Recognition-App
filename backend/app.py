@@ -7,27 +7,27 @@ from tensorflow.keras.preprocessing import image
 import base64
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+CORS(app)  # Enabling CORS(cross-origin resource sharing) for all routes
 
-# Load the face cascade classifier
+# Loading the face cascade classifier
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
-# Load the emotion recognition model
+# Loading the emotion recognition model
 classifier = load_model("model.h5")
 emotion_labels = ['Angry', '', 'Fear', 'Happy','Neutral', 'Sad', 'Surprise']
 
-# Define a function to process each frame
+
 def process_frame(frame):
-    # Convert frame from base64 string to numpy array
+    # Converting frame from base64 string to numpy array
     frame_bytes = base64.b64decode(frame.split(',')[1])
     nparr = np.frombuffer(frame_bytes, np.uint8)
     frame = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
     
-    # Convert frame to grayscale
+    # Converting frame to grayscale
     gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    gray_frame = cv2.equalizeHist(gray_frame)
+    gray_frame = cv2.equalizeHist(gray_frame) # Performing histogram equalization
     
-    # Detect faces
+    # Detecting faces
     faces = face_cascade.detectMultiScale(gray_frame)
     
     for (x, y, w, h) in faces:
@@ -42,25 +42,23 @@ def process_frame(frame):
             # Predict emotion
             prediction = classifier.predict(roi)[0]
             label = emotion_labels[prediction.argmax()]
-            cv2.putText(frame, label, (x, y), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 2)
+            return label
     
-    # Convert processed frame to base64 string
-    _, encoded_frame = cv2.imencode('.jpg', frame)
-    processed_frame_data = 'data:image/jpeg;base64,' + base64.b64encode(encoded_frame).decode()
-    
-    return processed_frame_data
+    # If no face is detected
+    return None
 
-# Define a route to receive video frames and process them in real-time
-@app.route('/process_frame', methods=['POST'])
+# Defining a route to receive video frames and predict emotion
+@app.route('/predict_emotion', methods=['POST'])
 @cross_origin()  # Enable CORS for this route
-def process_frame_route():
+def predict_emotion():
     try:
         frame_data = request.json['frame']
-        # print("Received frame data:", frame_data)  # Print received frame data for debugging
-        processed_frame = process_frame(frame_data)
-        return jsonify({'processed_frame': processed_frame})
+        print("Received frame data:", frame_data)  
+        emotion = process_frame(frame_data)
+        print("Predicted emotion:", emotion)  
+        return jsonify({'emotion': emotion})
     except Exception as e:
-        print("Error processing frame:", str(e))  # Print error message for debugging
+        print("Error predicting emotion:", str(e))
         return jsonify({'error': str(e)})
 
 if __name__ == '__main__':
