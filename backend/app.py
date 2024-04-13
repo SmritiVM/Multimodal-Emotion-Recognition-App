@@ -53,7 +53,7 @@ def process_frame(frame):
 def predict_emotion():
     try:
         frame_data = request.json['frame']
-        print("Received frame data:", frame_data)  
+        # print("Received frame data:", frame_data)  
         emotion = process_frame(frame_data)
         print("Predicted emotion:", emotion)  
         return jsonify({'emotion': emotion})
