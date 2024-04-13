@@ -59,15 +59,20 @@ const detect = async (net) => {
       drawMesh(faces, ctx);
 
       // Preprocess and predict emotions for each detected face
-      faces.forEach(async (face) => {
+      const predictions = await Promise.all(faces.map(async (face) => {
         const tensor = preprocessImage(video, face);
-        // const emotions = await predictEmotions(tensor);
-        // console.log(emotions);
-        // Do something with the predicted emotions
-      });
+        if (tensor) {
+          return predictEmotions(tensor);
+        } else {
+          return null;
+        }
+      }));
+
+      console.log(predictions); // Log all the predictions
     }
   }
 };
+
 
     // Preprocess the image
     const preprocessImage = (video, face) => {
@@ -110,11 +115,26 @@ const detect = async (net) => {
 
   // Run the emotion recognition model
   const predictEmotions = async (tensor) => {
-    const model = await tf.loadLayersModel('path_to_your_model/model.json');
-    const predictions = model.predict(tensor);
-    const emotions = predictions.arraySync()[0];
-    return emotions;
-  };
+    const response = await fetch('http://localhost:3000/predict', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ input: tensor.arraySync() })
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Predictions:', data.predictions);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  }    
 
   return (
     <div>
