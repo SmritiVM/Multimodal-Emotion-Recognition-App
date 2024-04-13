@@ -1,52 +1,64 @@
 from flask import Flask, request, jsonify
-import cv2 as cv
+from flask_cors import CORS, cross_origin
+import cv2
 import numpy as np
 from keras.models import load_model
-from tensorflow.keras.utils import img_to_array
-from keras.preprocessing import image
-
-import os
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = '3'
+from tensorflow.keras.preprocessing import image
+import base64
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
-# Load the face cascade
-face_cascade_name = "haarcascade_frontalface_alt.xml"
-face_cascade = cv.CascadeClassifier(cv.samples.findFile(face_cascade_name))
+# Load the face cascade classifier
+face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
-# Load the emotion detection model
+# Load the emotion recognition model
 classifier = load_model("model.h5")
-emotion_labels = ['Angry', '', 'Fear', 'Happy', 'Neutral', 'Sad', 'Surprise']
+emotion_labels = ['Angry', '', 'Fear', 'Happy','Neutral', 'Sad', 'Surprise']
 
-def detect_emotion(frame):
-    gray_frame = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
-    gray_frame = cv.equalizeHist(gray_frame)
+# Define a function to process each frame
+def process_frame(frame):
+    # Convert frame to grayscale
+    gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    gray_frame = cv2.equalizeHist(gray_frame)
+    
+    # Detect faces
     faces = face_cascade.detectMultiScale(gray_frame)
-
-    emotions = []
-
-    for (x,y,w,h) in faces:
-        roi_gray = gray_frame[y : y + h, x : x + w]
-        roi_gray = cv.resize(roi_gray, (48, 48), interpolation = cv.INTER_AREA)
-
+    
+    for (x, y, w, h) in faces:
+        roi_gray = gray_frame[y:y+h, x:x+w]
+        roi_gray = cv2.resize(roi_gray, (48, 48), interpolation=cv2.INTER_AREA)
+        
         if np.sum([roi_gray]) != 0:
             roi = roi_gray.astype('float') / 255.0
-            roi = img_to_array(roi)
+            roi = image.img_to_array(roi)
             roi = np.expand_dims(roi, axis=0)
-
+            
+            # Predict emotion
             prediction = classifier.predict(roi)[0]
             label = emotion_labels[prediction.argmax()]
-            emotions.append({'label': label, 'position': (x, y)})
+            cv2.putText(frame, label, (x, y), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 2)
+    
+    return frame
 
-    return emotions
-
-@app.route('/detect_emotions', methods=['POST'])
-def detect_emotions():
-    image_file = request.files['image']
-    nparr = np.frombuffer(image_file.read(), np.uint8)
-    frame = cv.imdecode(nparr, cv.IMREAD_COLOR)
-    emotions = detect_emotion(frame)
-    return jsonify(emotions)
+# Define a route to receive video frames
+@app.route('/process_frame', methods=['POST'])
+@cross_origin()  # Enable CORS for this route
+def process_frame_route():
+    # Convert frame from base64 string to numpy array
+    frame_data = request.json['frame']
+    frame_bytes = base64.b64decode(frame_data.split(',')[1])
+    nparr = np.frombuffer(frame_bytes, np.uint8)
+    frame = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+    
+    # Process frame
+    processed_frame = process_frame(frame)
+    
+    # Convert processed frame to base64 string
+    _, encoded_frame = cv2.imencode('.jpg', processed_frame)
+    processed_frame_data = 'data:image/jpeg;base64,' + base64.b64encode(encoded_frame).decode()
+    
+    return jsonify({'processed_frame': processed_frame_data})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
