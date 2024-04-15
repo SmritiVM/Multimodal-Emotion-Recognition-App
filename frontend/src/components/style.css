@@ -7,13 +7,19 @@
 .web-camera{
     width: 60%;
     margin: 5%;
-    border: 1px solide blue;
+}
+
+.camera{
+    border-radius: 20px;
 }
 
 .chatbot{
     width: 40%;
     margin-top: 5%;
     margin-bottom: 5vh;
+    margin-right: 1%;
     max-height: 90vh;
     overflow-y: scroll;
+    background-color:black;
+    border-radius: 20px;
 }

@@ -33,6 +33,7 @@ const EmotionRecognition = () => {
         audio={false}
         ref={webcamRef}
         screenshotFormat="image/jpeg"
+        className='camera'
       />
     </div>
   );
