@@ -88,7 +88,7 @@ def handle_message():
         return jsonify({"response": response})
     except Exception as e:
         print("Error fetching response: ", str(e))
-        return jsonify({'error':str(e)}), 500
+        return jsonify({'response':"Sorry, didn't get you"})
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5001, debug=True)
