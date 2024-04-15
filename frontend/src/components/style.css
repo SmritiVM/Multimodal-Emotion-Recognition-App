@@ -1,12 +1,28 @@
 .container{
     display: flex;
     flex-direction: row;
+    min-height: 100vh;
     max-height: 100vh;
 }
 
 .web-camera{
     width: 60%;
     margin: 5%;
+}
+
+.no-video{
+    width: 60%;
+    text-align: center;
+}
+
+.no-video button{
+    margin-top: 30%;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
 }
 
 .camera{
