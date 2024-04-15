@@ -1,0 +1,19 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    max-height: 100vh;
+}
+
+.web-camera{
+    width: 60%;
+    margin: 5%;
+    border: 1px solide blue;
+}
+
+.chatbot{
+    width: 40%;
+    margin-top: 5%;
+    margin-bottom: 5vh;
+    max-height: 90vh;
+    overflow-y: scroll;
+}

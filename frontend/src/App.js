@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import EmotionRecognition from "./components/EmotionRecognition";
 import Chatbot from "./components/Chatbot";
+import Home from "./components/Home";
 // import DemoCam from "./components/DemoCam";
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
+          <Route path ="/" element = {<Home/>}/>
           <Route path = "/fer" element = {<EmotionRecognition/>}/>
           <Route path = "/chatbot" element = {<Chatbot/>}/>
         </Routes>
