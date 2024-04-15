@@ -6,6 +6,7 @@ const Chatbot = () => {
     const [message, setMessage] = useState('');
     const [chatHistory, setChatHistory] = useState([]);
     const chatContainerRef = useRef(null);
+    let btnRef = useRef(null);
 
     useEffect(() => {
         // Scroll to bottom when new message is added
@@ -22,6 +23,13 @@ const Chatbot = () => {
             setMessage(''); // Clear input after sending message
         } catch (error) {
             console.error('Error sending message:', error);
+        }
+    };
+
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            btnRef.current.click(); // Trigger button click
         }
     };
 
@@ -43,9 +51,10 @@ const Chatbot = () => {
                     className="message-input"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
+                    onKeyPress={handleKeyPress} // Listen for Enter key press
                     placeholder="Enter your message..."
                 />
-                <button className="send-button" onClick={sendMessage}>Send</button>
+                <button className="send-button" ref={btnRef} onClick={sendMessage}>Send</button>
             </div>
         </div>
     );
