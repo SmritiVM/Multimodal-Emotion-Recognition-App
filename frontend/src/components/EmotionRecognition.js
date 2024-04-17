@@ -7,7 +7,7 @@ const EmotionRecognition = () => {
   const captureFrameAndProcess = async () => {
     const frame = webcamRef.current.getScreenshot();
 
-    const response = await fetch('http://localhost:5000/predict_emotion', {
+    const maskResponse = await fetch('http://localhost:5002/check-mask', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -15,8 +15,22 @@ const EmotionRecognition = () => {
       body: JSON.stringify({ frame })
     });
 
-    const data = await response.json();
-    console.log("Predicted Emotion:", data.emotion);
+    const maskData = await maskResponse.json();
+    console.log("Mask Status:", maskData.mask_status);
+
+    // Only process emotions if mask status is "No Mask"
+    if (maskData.mask_status === 'No Mask') {
+      const emotionResponse = await fetch('http://localhost:5000/predict_emotion', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ frame })
+      });
+
+      const emotionData = await emotionResponse.json();
+      console.log("Predicted Emotion:", emotionData.emotion);
+    }
   };
 
   useEffect(() => {
