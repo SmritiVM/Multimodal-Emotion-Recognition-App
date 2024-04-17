@@ -7,6 +7,8 @@ import json
 from keras.models import load_model
 from nltk.stem import WordNetLemmatizer
 import nltk
+from collections import deque
+from statistics import mode
 
 # Load NLTK data
 nltk.download('punkt')
@@ -14,8 +16,7 @@ nltk.download('wordnet')
 
 # Initialize Flask app
 app = Flask(__name__)
-CORS(app)  # Enabling CORS(cross-origin resource sharing) for all routes
-
+CORS(app)  # Enable CORS for all routes
 
 # Load trained model and other required data
 model = load_model('chatbot_model.h5')
@@ -23,6 +24,9 @@ words = pickle.load(open("words.pkl", "rb"))
 classes = pickle.load(open("classes.pkl", "rb"))
 intents = json.loads(open("intents.json").read())
 lemmatizer = WordNetLemmatizer()
+
+# Initialize deque to store last 5 emotions
+emotion_history = deque(maxlen=5)
 
 # Function to process user message and generate chatbot response
 def chatbot_response(msg):
@@ -71,24 +75,35 @@ def chatbot_response(msg):
 # Endpoint to receive messages from React frontend
 @app.route("/chatbot", methods=["POST"])
 @cross_origin()  # Enable CORS for this route
-
 def handle_message():
     try:
         data = request.get_json()
         message = data["message"]
-        response = chatbot_response(message)
 
-        # Adding CORS headers in the response
-        response_headers = {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': 'Content-Type'
-        }
+        # If the message starts with "Emotion: ", treat it as emotion data
+        if message.startswith("Emotion: "):
+            # Extract the emotion from the message
+            emotion = message.replace("Emotion: ", "")
+            print("Detected Emotion:", emotion)
+            
+            # Store the emotion in history
+            emotion_history.append(emotion)
+            
+            # Get the mode of last 5 emotions
+            if len(emotion_history) == 5:
+                mode_emotion = mode(emotion_history)
+                print("Mode of last 5 emotions:", mode_emotion)
+                response = f"Mode of last 5 emotions: {mode_emotion}"
+            else:
+                response = "Not enough emotions for calculation."
+        else:
+            # Process the user's message as usual
+            response = chatbot_response(message)
 
-        # return jsonify({"response": response}), 200, response_headers
         return jsonify({"response": response})
     except Exception as e:
         print("Error fetching response: ", str(e))
-        return jsonify({'response':"Sorry, didn't get you"})
+        return jsonify({'response': "Sorry, didn't get you"})
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5001, debug=True)
