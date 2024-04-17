@@ -14,7 +14,8 @@ function Home(){
     }
 
     return(
-        <div className="container" style = {{"backgroundImage": `url(${Background})`}}>
+        // <div className="container" style = {{"backgroundImage": `url(${Background})`}}>
+        <div className="container">
             {enableVideo && (
             <div className="web-camera">
                 <EmotionRecognition/>
