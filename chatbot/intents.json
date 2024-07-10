@@ -77,18 +77,6 @@
                 "default":["I'm sorry, I didn't understand that.", "Could you please rephrase that?", "I'm not sure what you're asking. Can you try again?"]
         }},
         {
-            "tag": "time",
-            "patterns": ["what time is it", "current time", "time now", "what's the time", "tell me the time", "what is the time", "do you know the time", "time please", "what time is it now"],
-            "responses": {
-                "default": ["The current time is...", "It's currently..."],
-                "joy": ["It's time to celebrate! The current time is...", "The time is... and it's a perfect moment to enjoy the day!"],
-                "sadness": ["The time is... Take it one moment at a time.", "It's currently... Time can be a great healer."],
-                "anger": ["The time is... Let's take a deep breath and focus on the present.", "It's currently... Let's try to stay calm and focused."],
-                "surprise": ["The time is... Time flies when you're having fun, right?", "It's currently... Surprised by how fast time is passing?"],
-                "neutral": ["The current time is...", "It's currently... Time ticks on, no matter what."]
-            }
-        },
-        {
             "tag": "news",
             "patterns": ["latest news", "news update", "what's happening in the world", "current news", "news today", "what's in the news", "any news updates", "news please", "tell me the news"],
             "responses": {
