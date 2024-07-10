@@ -3,7 +3,6 @@
     flex-direction: row;
     min-height: 100vh;
     max-height: 100vh;
-    font-size: 3vw;
 }
 
 .web-camera{
@@ -24,7 +23,6 @@
     background-color: #007bff;
     color: #fff;
     cursor: pointer;
-    font-size: 2.5vw;
 }
 
 .camera{

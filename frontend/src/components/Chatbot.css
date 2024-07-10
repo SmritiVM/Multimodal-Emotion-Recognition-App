@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    
   }
   
   .chat-messages {
@@ -16,7 +15,6 @@
     margin: 10px;
     padding: 10px;
     border-radius: 10px;
-    font-size: 1.5vw;
   }
   
   .user-message {
@@ -25,7 +23,6 @@
     background-color: #007bff;
     color: #fff;
     align-self: flex-end;
-    font-size: 1.5vw;
   }
   
   .bot-message {
@@ -34,14 +31,12 @@
     background-color: #f0f0f0;
     color: #000;
     align-self: flex-start;
-    font-size: 1.5vw;
   }
   
   .chat-input {
     display: flex;
     align-items: center;
     padding: 10px;
-    font-size: 1.5vw;
   }
   
   .message-input {
@@ -49,7 +44,6 @@
     padding: 10px;
     border-radius: 5px 0 0 5px;
     border: 1px solid #ccc;
-    font-size: 1.5vw;
   }
   
   .send-button {
@@ -59,6 +53,5 @@
     background-color: #007bff;
     color: #fff;
     cursor: pointer;
-    font-size: 1.5vw;
   }
   
