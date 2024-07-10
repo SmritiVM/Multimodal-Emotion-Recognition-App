@@ -32,16 +32,16 @@ const EmotionRecognition = () => {
       console.log("Predicted Emotion:", emotionData.emotion);
 
       // Send the detected emotion to the chatbot
-      const chatbotResponse = await fetch('http://localhost:5001/chatbot', {
+      const chatbotResponse = await fetch('http://localhost:5001/updateEmo', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ message: `Emotion: ${emotionData.emotion}` })
+        body: JSON.stringify({ message: `${emotionData.emotion}` })
       });
 
       const chatbotData = await chatbotResponse.json();
-      console.log("Chatbot Response:", chatbotData.response);
+      // console.log("Chatbot Response:", chatbotData.response);
     }
   };
 

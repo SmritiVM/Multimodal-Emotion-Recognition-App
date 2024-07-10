@@ -1,0 +1,289 @@
+{
+    "intents": [
+        {
+            "tag": "greetings",
+            "patterns": ["hello", "hey", "hi", "good day", "greetings", "what's up?", "howdy", "hi there", "yo", "hiya", "how's it going", "nice to meet you", "hey there", "hiya"],
+            "responses": {
+                "default": ["Hello!", "Hey!", "What can I do for you?"],
+                "joy": ["Hey there! Feeling good?", "Hi! Having a great day?", "Hello! Ready to chat?"],
+                "sadness": ["Hi there. If you need a chat, I'm here for you.", "Hey. Cheer up! I'm here to talk."],
+                "anger": ["Hi. Let's try to calm down. How can I help?", "Hey. Take a deep breath. What's on your mind?"],
+                "surprise": ["Hi! What's got you so surprised?", "Hey! I'm here to chat. What's new?"],
+                "neutral": ["Hi there. How can I assist you today?", "Hello. I'm here to help."]
+            }
+        },
+        {
+            "tag": "goodbye",
+            "patterns": ["bye", "goodbye", "see you later", "see ya", "farewell", "take care", "until next time", "bye bye", "have a good one", "see you soon", "catch you later"],
+            "responses": {
+                "default": ["Goodbye!", "See you later!", "Have a great day!"],
+                "joy": ["Bye! Have a wonderful day!", "See you later! Stay happy!", "Goodbye! Keep smiling!"],
+                "sadness": ["Goodbye. Take care of yourself.", "See you later. I hope things get better.", "Bye. Remember, I'm here if you need to talk."],
+                "anger": ["Fine, leave then!", "Whatever, bye!", "Don't let the door hit you on the way out!"],
+                "surprise": ["Bye! Hope whatever surprised you was a good thing!", "See you later! If you need to talk about your surprise, I'm here!"],
+                "neutral": ["Goodbye. If you need assistance in the future, don't hesitate to reach out.", "See you later. Have a great day!"]
+            }
+        },
+        {
+            "tag": "thanks",
+            "patterns": ["thanks", "thank you", "appreciate it", "thanks a lot", "thank you very much", "much obliged", "cheers", "thanks a bunch", "thank you so much", "thanks heaps"],
+            "responses": {
+                "default": ["You're welcome!", "No problem!", "Glad to help!", "Anytime!"],
+                "joy": ["You're welcome! It was my pleasure.", "No problem! Happy to assist!", "Glad I could help!"]
+            }
+        },
+        {
+            "tag": "about_bot",
+            "patterns": ["who are you", "what are you", "tell me about yourself", "introduce yourself", "what can you do", "what's your purpose", "what are you for", "what's your function"],
+            "responses": 
+            {
+                "default": ["I am a chatbot designed to help you with your queries.", "I'm your friendly chatbot here to assist you!", "I'm an AI assistant here to help you."]
+            }
+        },
+        {
+            "tag": "emotions",
+            "patterns": ["how are you feeling", "what's your mood", "are you happy", "are you sad", "how are you doing today", "what are you feeling", "what's going on with you", "what's up with you"],
+            "responses": {
+            "default":["I'm a chatbot, so I don't have feelings, but I'm here to assist you!", "I'm always here to help, no matter my mood!", "I'm here and ready to assist you, regardless of my mood."]
+        }},
+        {
+            "tag": "thanks_response",
+            "patterns": ["I'm feeling grateful", "thank you for asking", "appreciate your help", "I'm thankful", "thanks for checking in", "feeling thankful", "I'm grateful", "thankful for your help", "appreciate it, thank you"],
+            "responses": 
+            {
+                "default":["You're welcome! It's my pleasure to assist you.", "I'm glad I could help!", "No problem at all!", "Happy to help!"]
+        }},
+        {
+            "tag": "help",
+            "patterns": ["help", "can you help me", "I need assistance", "help me out", "need some help", "can you assist me", "can you give me a hand", "I require assistance", "help me please", "I'm stuck, help"],
+            "responses": {
+                "default": ["Of course! What do you need help with?", "I'm here to help. What's the problem?", "Sure thing! What do you need assistance with?"],
+                "joy": ["Absolutely! I'm here to make your day even better!", "Of course! I'm here to help you with a smile!", "Sure thing! How can I brighten your day?"]
+            }
+        },
+        {
+            "tag": "options",
+            "patterns": ["what can you do", "what are your abilities", "show me your features", "tell me what you can do", "what do you offer", "what are you capable of", "what services do you provide", "what functionalities do you have", "what are your features"],
+            "responses": {
+                "default": ["I can assist you with a variety of tasks. What would you like to do?", "I'm capable of many things. How can I assist you today?", "I have a range of features. What would you like to know about?"],
+                "joy": ["I can do a lot of cool things! What are you interested in?", "I have a bunch of features to make you smile! What can I do for you?", "I'm here with a bunch of cool features! What would you like to try?"]
+            }
+        },
+        {
+            "tag": "fallback",
+            "patterns": [],
+            "responses": 
+            {
+                "default":["I'm sorry, I didn't understand that.", "Could you please rephrase that?", "I'm not sure what you're asking. Can you try again?"]
+        }},
+        {
+            "tag": "time",
+            "patterns": ["what time is it", "current time", "time now", "what's the time", "tell me the time", "what is the time", "do you know the time", "time please", "what time is it now"],
+            "responses": {
+                "default": ["The current time is...", "It's currently..."],
+                "joy": ["It's time to celebrate! The current time is...", "The time is... and it's a perfect moment to enjoy the day!"],
+                "sadness": ["The time is... Take it one moment at a time.", "It's currently... Time can be a great healer."],
+                "anger": ["The time is... Let's take a deep breath and focus on the present.", "It's currently... Let's try to stay calm and focused."],
+                "surprise": ["The time is... Time flies when you're having fun, right?", "It's currently... Surprised by how fast time is passing?"],
+                "neutral": ["The current time is...", "It's currently... Time ticks on, no matter what."]
+            }
+        },
+        {
+            "tag": "news",
+            "patterns": ["latest news", "news update", "what's happening in the world", "current news", "news today", "what's in the news", "any news updates", "news please", "tell me the news"],
+            "responses": {
+                "default": ["Let me fetch the latest news for you.", "Here are some headlines from today's news.", "The news today includes..."],
+                "joy": ["Here's some exciting news to brighten your day!", "The news today is full of positive stories!", "Good news! Here's the latest from around the world."],
+                "sadness": ["The news today includes... It's okay to feel overwhelmed.", "Here are some headlines... Remember, you're not alone in feeling this way.", "It's important to stay informed, but don't forget to take care of yourself while reading the news."],
+                "anger": ["The news today includes... It's understandable to feel upset.", "Here are some headlines... It's okay to be angry about what's happening in the world.", "Feeling angry about the news is a natural response. Remember to take breaks and care for yourself."],
+                "surprise": ["The news today includes... Surprised by any of these headlines?", "Here are some headlines... Anything unexpected catch your attention?", "It's important to stay informed, even when the news surprises us."],
+                "neutral": ["The news today includes... It's always good to stay informed.", "Here are some headlines from today's news.", "Keeping up with the news helps us understand the world around us."]
+            }
+        },
+        {
+            "tag": "music",
+            "patterns": ["play some music", "music please", "song recommendation", "what song should I listen to", "any good music", "can you play some music", "I want to listen to music", "recommend me a song", "play music for me"],
+            "responses": {
+                "default": ["I can't play music, but I can recommend some songs or artists!", "How about listening to 'Shape of You' by Ed Sheeran?", "I can't play music, but I can suggest 'Happy' by Pharrell Williams!"],
+                "joy": ["Let's play some upbeat music to match your mood! How about 'Happy' by Pharrell Williams?", "Here's a cheerful song to lift your spirits! How about 'Can't Stop the Feeling!' by Justin Timberlake?", "How about a happy tune to go with your mood? How about 'Walking on Sunshine' by Katrina and the Waves?"],
+                "sadness": ["Here's a song that might resonate with your feelings. How about 'Someone Like You' by Adele?", "Music can be a comfort during tough times. How about 'Someone You Loved' by Lewis Capaldi?", "This song might help you process your emotions. How about 'Fix You' by Coldplay?"],
+                "anger": ["Sometimes loud music can help release pent-up anger. How about 'Killing in the Name' by Rage Against the Machine?", "This song's energy might resonate with your current feelings. How about 'Break Stuff' by Limp Bizkit?", "Music can be a great outlet for anger. How about 'In the End' by Linkin Park?"],
+                "surprise": ["Here's a song to match your sense of surprise! How about 'Uptown Funk' by Mark Ronson ft. Bruno Mars?", "Music can amplify the feeling of surprise. How about 'Shake It Off' by Taylor Swift?", "This song's unexpected twists might match your current mood. How about 'Bohemian Rhapsody' by Queen?"],
+                "neutral": ["Here's a calming track for you. How about 'Weightless' by Marconi Union?", "How about some easy-listening music to relax? How about 'Sunday Morning' by Maroon 5?", "Music can be a great way to unwind and reset. How about 'Somewhere Over the Rainbow' by Israel Kamakawiwo'ole?"]
+            }
+        },
+        {
+            "tag": "food",
+            "patterns": ["I'm hungry", "food near me", "what should I eat", "any food recommendations", "looking for a place to eat", "recommend me a restaurant", "what's good to eat", "where can I get food", "I need something to eat"],
+            "responses": {
+                "default": ["How about trying a new restaurant in your area?", "You could order something you've been craving!", "Have you considered cooking a meal at home?"],
+                "joy": ["Great! It's always fun to enjoy a good meal!", "Eating is one of life's simple pleasures!", "Food can really lift your spirits! Enjoy!"],
+                "sadness": ["Food can be comforting. Treat yourself to something you love!", "A good meal can make a tough day better. What's your favorite comfort food?", "Eating something delicious might help improve your mood!"],
+                "anger": ["Food can be a great way to channel anger. Maybe cooking will help you relax.", "Sometimes a satisfying meal can help improve your mood.", "Eating something you enjoy might help you feel better."]
+            }
+        },
+        {
+            "tag": "jokes",
+            "patterns": ["tell me a joke", "joke of the day", "make me laugh", "got any jokes", "share a joke", "do you know any jokes", "I want to hear a joke", "make me giggle", "say something funny"],
+            "responses": {
+                "default": ["Why couldn't the bicycle stand up by itself? It was two tired!", "What do you call a fish wearing a crown? Salmon royalty!", "Why don't scientists trust atoms? Because they make up everything!"],
+                "joy": ["Why was the math book sad? Because it had too many problems.", "I'm reading a book on anti-gravity. It's impossible to put down!", "I'm friends with 25 letters of the alphabet. I don't know y."]
+            }
+        },
+        {
+            "tag": "movies",
+            "patterns": ["recommend a movie", "what movie should I watch", "movie suggestion", "any good movies", "looking for a movie to watch", "suggest me a movie", "what's a good movie", "I want to watch a movie", "movie recommendation"],
+            "responses": {
+                "default": ["What genre of movie are you in the mood for?", "Do you prefer something light-hearted or more serious?", "Have you seen any good movies lately?"],
+                "joy": ["A good movie can really brighten your day! Enjoy! How about watching 'The Pursuit of Happyness (2006)'?", "Movies are a great way to relax and unwind. Enjoy your movie time! How about watching 'Up (2009)'?", "Hope you find a movie that matches your happy mood! How about watching 'The Intouchables (2011)'?"],
+                "sadness": ["Watching a movie can be a great way to lift your spirits! How about watching 'Schindler's List (1993)'?", "A good movie might help take your mind off things. Enjoy! How about watching 'Life is Beautiful (1997)'?", "A movie can be a comforting escape. Enjoy your movie time! How about watching 'The Green Mile (1999)'?"],
+                "anger": ["Watching an action movie might help channel some of that anger! How about watching 'Fight Club (1999)'?", "A movie with a good storyline might help distract you. How about watching 'Mad Max: Fury Road (2015)'?", "A movie with a satisfying ending might help improve your mood. How about watching 'The Dark Knight (2008)'?"],
+                "fear": ["Watching a suspenseful movie might match your feeling of fear! How about watching 'The Shining (1980)'?", "A thriller could keep you on the edge of your seat. How about watching 'Se7en (1995)'?", "A horror movie might give you a good scare! How about watching 'The Exorcist (1973)'?"]
+            }
+        },
+        {
+            "tag": "pets",
+            "patterns": ["tell me about pets", "why are pets good", "should I get a pet", "pet advice", "all about pets", "why have a pet", "what's good about pets", "having a pet"],
+            "responses": {
+                "default": ["Pets can provide companionship and joy in our lives.", "Many people find having a pet to be a rewarding experience.", "Pets can help reduce stress and improve our mood."],
+                "joy": ["Pets can bring so much happiness into our lives!", "Having a pet can be such a joyful experience!", "Pets have a unique way of making us smile!"],
+                "sadness": ["Pets can provide comfort during difficult times.", "The companionship of a pet can be especially comforting when we're feeling down.", "Pets have a way of understanding and providing comfort when we need it most."],
+                "anger": ["Pets can be a source of comfort and calm during stressful times.", "The unconditional love of a pet can help soothe anger and frustration.", "Spending time with a pet can help improve your mood and reduce anger."],
+                "fear": ["Pets can provide a sense of security and comfort in fearful situations.", "The presence of a pet can help reduce feelings of fear and anxiety.", "Pets can be a source of distraction and comfort when facing fear."]
+            }
+        }
+        ,
+        {
+            "tag": "weather",
+            "patterns": ["weather today", "forecast for tomorrow", "current weather", "what's the weather like", "weather forecast", "how's the weather", "what is the weather forecast", "what's the weather today", "tell me the weather"],
+            "responses": {
+                "default": ["Let me check the weather for you.", "Here's the weather forecast for your location.", "The current weather is..."],
+                "joy": ["The weather is perfect for outdoor activities!", "Enjoy the beautiful weather today!"],
+                "sadness": ["The weather may not be great, but it's a good excuse to stay indoors and relax.", "The weather will improve. Hang in there!"],
+                "anger": ["The weather can be frustrating, but it's temporary. Things will get better!", "Don't let the weather ruin your day. Stay positive!"],
+                "fear": ["The weather might be unsettling, but it's important to stay safe and prepared."]
+            }
+        },
+        {
+            "tag": "sports",
+            "patterns": ["sports news", "latest scores", "football updates", "any sports news", "what's happening in sports", "tell me about sports", "sports updates", "what's the score", "what are the latest sports news"],
+            "responses": {
+                "default": ["Here are the latest sports updates.", "Stay up to date with the latest sports news and scores."],
+                "joy": ["Your favorite team won! Celebrate the victory!", "It's always exciting to watch a thrilling game."],
+                "sadness": ["Sometimes our favorite team doesn't win, but there's always next time.", "It's disappointing when your team loses, but there will be more games to enjoy."],
+                "anger": ["Sports can be frustrating when things don't go as expected. Take a deep breath and stay positive.", "Don't let the outcome of a game affect your mood. There's always another match."],
+                "fear": ["Sports can be intense, but that's part of the excitement!"]
+            }
+        },
+        {
+            "tag": "fitness",
+            "patterns": ["workout tips", "fitness advice", "how to stay healthy", "fitness tips", "exercise advice", "help me stay fit", "how to keep fit", "fitness suggestions", "tips for staying healthy"],
+            "responses": {
+                "default": ["Staying active is important for your overall health.", "A balanced diet and regular exercise are key to staying healthy."],
+                "joy": ["Exercise can boost your mood and energy levels!", "You'll feel great after a good workout!"],
+                "sadness": ["Exercise can help improve your mood. Try going for a walk or doing a workout.", "Physical activity can be a great way to lift your spirits."],
+                "anger": ["Exercise can be a great way to release pent-up anger and frustration.", "Channel your anger into a workout and you'll feel better afterwards."],
+                "fear": ["Regular exercise can help reduce stress and anxiety, so don't let fear hold you back."]
+            }
+        },
+        {
+            "tag": "travel",
+            "patterns": ["travel tips", "best travel destinations", "where to go on vacation", "travel advice", "vacation ideas", "where should I travel", "need travel advice", "recommend me a destination", "travel suggestions"],
+            "responses": {
+                "default": ["Traveling can be a great way to relax and explore new places.", "Do you have a specific destination in mind?"],
+                "joy": ["Traveling to new places is always exciting!", "Exploring a new destination can be a memorable experience."],
+                "sadness": ["Traveling can be a way to take your mind off things and enjoy a change of scenery.", "A change of environment can help improve your mood."],
+                "anger": ["Traveling can be a way to unwind and relax, away from the sources of anger.", "Exploring new places can be a refreshing experience."],
+                "fear": ["Traveling can be a way to face your fears and step out of your comfort zone."]
+            }
+        },
+        {
+            "tag": "education",
+            "patterns": ["learning resources", "educational tips", "study advice", "learning advice", "education tips", "help with studying", "study resources", "study suggestions", "how to study effectively"],
+            "responses": {
+                "default": ["Education is a lifelong journey. What would you like to learn?", "Continuous learning is key to personal and professional growth."],
+                "joy": ["Learning new things can be a rewarding experience!", "Education opens doors to new opportunities."],
+                "sadness": ["Education can be a way to focus your mind on positive learning experiences.", "Studying can be a way to distract yourself and learn something new."],
+                "anger": ["Education can be a way to channel your anger into productive learning.", "Studying can help you focus your mind on something positive."],
+                "fear": ["Education can help you overcome your fears by gaining knowledge and understanding."]
+            }
+        },
+        {
+            "tag": "technology",
+            "patterns": ["tech news", "gadget reviews", "technology trends", "latest technology news", "what's new in tech", "tell me about technology", "technology updates", "what are the latest tech news", "tech advice"],
+            "responses": {
+                "default": ["Stay updated with the latest in technology.", "Technology is constantly evolving. What are you interested in learning about?"],
+                "joy": ["Technology can make our lives easier and more enjoyable!", "It's exciting to see how technology is advancing."],
+                "sadness": ["Technology can be a way to distract yourself and find enjoyment in learning about new gadgets.", "Exploring new technology can be a positive experience."],
+                "anger": ["Technology can be a way to stay informed and connected, even when you're feeling angry.", "Learning about new technology can be a great way to channel your anger into something positive."],
+                "fear": ["Technology can help you overcome your fears by providing tools and resources to stay safe and informed."]
+            }
+        },
+        {
+            "tag": "fashion",
+            "patterns": ["fashion trends", "style tips", "what to wear", "fashion advice", "latest fashion", "fashion suggestions", "what's in style", "how to dress", "fashion tips"],
+            "responses": {
+                "default": ["Fashion is a form of self-expression. What's your style?", "Confidence is the best accessory. Wear what makes you feel good."],
+                "joy": ["Fashion can be a fun way to express your mood and personality!", "Experimenting with different styles can be exciting and enjoyable."],
+                "sadness": ["Fashion can be a way to uplift your spirits and boost your confidence.", "Choosing an outfit you love can improve your mood."],
+                "anger": ["Fashion can be a way to express your emotions and feelings through clothing.", "Dressing up can be a positive way to channel your anger and express yourself."],
+                "fear": ["Fashion can be a way to face your fears and step out of your comfort zone."]
+            }
+        },
+        {
+            "tag": "books",
+            "patterns": ["book recommendations", "favorite books", "reading suggestions", "good books to read", "book advice", "suggest me a book", "what book should I read", "looking for a good book", "recommend me a book"],
+            "responses": {
+                "default": ["Books can take you on incredible journeys. What genre do you prefer?", "Reading is a great way to relax and unwind. Do you have a favorite author?"],
+                "joy": ["Getting lost in a good book is a wonderful feeling!", "Reading can be a joyful escape into different worlds and stories."],
+                "sadness": ["Books can be a source of comfort and solace during difficult times.", "Reading a good book can be a soothing and calming experience."],
+                "anger": ["Books can be a way to channel your anger into a different world or story.", "Reading can help you calm down and gain a new perspective."],
+                "fear": ["Books can be a way to face your fears and explore different ideas and perspectives."]
+            }
+        },
+        {
+            "tag": "history",
+            "patterns": ["historical facts", "interesting history", "history trivia", "fun history facts", "history questions", "tell me about history", "history lessons", "history stories", "history knowledge"],
+            "responses": {
+                "default": ["History is full of fascinating stories and events.", "Every day has historical significance. What interests you about history?"],
+                "joy": ["History can be a way to connect with the past and appreciate the present.", "Learning about history can be a joyful exploration of the past."],
+                "sadness": ["History can be a way to find solace in the fact that people have faced challenges before and persevered.", "Studying history can be a way to find hope and resilience in difficult times."],
+                "anger": ["History can be a way to channel your anger into learning about the past and understanding different perspectives.", "Studying history can help you gain a new perspective and understand the world better."],
+                "fear": ["History can be a way to face your fears by learning about how people have overcome challenges in the past."]
+            }
+        },
+        {
+            "tag": "cooking",
+            "patterns": ["cooking recipes", "recipe ideas", "cooking tips", "any good recipes", "what should I cook", "help with cooking", "recipe suggestions", "what to cook today", "cooking advice"],
+            "responses": {
+                "default": ["Cooking is a creative and rewarding activity. What type of cuisine do you enjoy?", "Experimenting with new recipes can be a fun culinary adventure."],
+                "joy": ["Cooking can be a joyful experience that brings people together.", "Preparing a delicious meal can be a rewarding and satisfying experience."],
+                "sadness": ["Cooking can be a way to nurture yourself and find comfort in familiar flavors.", "Preparing a meal you love can lift your spirits and improve your mood."],
+                "anger": ["Cooking can be a way to channel your anger into creating something delicious.", "Cooking can be a therapeutic activity that helps you relax and unwind."],
+                "fear": ["Cooking can be a way to face your fears by trying new recipes and mastering new culinary skills."]
+            }
+        },
+        {
+            "tag": "gaming",
+            "patterns": ["game recommendations", "gaming news", "favorite games", "what games should I play", "any good games", "suggest me a game", "what game should I try", "looking for a game to play", "game advice"],
+            "responses": {
+                "default": ["Gaming is a fun way to relax and unwind. What type of games do you enjoy?", "There are so many great games out there. What platform do you play on?"],
+                "joy": ["Gaming can be a joyful escape into immersive worlds and exciting adventures.", "Playing your favorite game can be a source of joy and excitement."],
+                "sadness": ["Gaming can be a way to take your mind off things and enjoy some time for yourself.", "Playing a game you love can be a comforting and soothing experience."],
+                "anger": ["Gaming can be a way to channel your anger into virtual challenges and competition.", "Playing a game can help you relax and unwind after a frustrating day."],
+                "fear": ["Gaming can be a way to face your fears in a safe and controlled environment."]
+            }
+        },
+        {
+            "tag": "finance",
+            "patterns": ["financial advice", "investment tips", "money management", "financial tips", "money advice", "help with finances", "financial suggestions", "money saving tips", "how to manage money"],
+            "responses": {
+                "default": ["Financial planning is important for a secure future.", "Smart money management is key to financial stability."],
+                "joy": ["Financial success can bring peace of mind and a sense of accomplishment.", "Achieving your financial goals can be a rewarding experience."],
+                "sadness": ["Financial difficulties can be challenging, but there are ways to overcome them.", "Seeking financial advice can help you navigate difficult financial situations."],
+                "anger": ["Financial stress can be overwhelming, but there are strategies to manage it.", "Anger about financial matters is common, but it's important to stay focused on solutions."],
+                "fear": ["Financial fears are common, but with proper planning and management, you can overcome them."]
+            }
+        }        
+    ]
+}
